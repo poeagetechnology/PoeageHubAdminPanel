@@ -51,7 +51,6 @@ class _ApprovalsScreenState extends State<ApprovalsScreen>
     }).toList();
   }
 
-
   Future<void> _confirmStatusChange(Seller seller, String newStatus) async {
 
     if (newStatus == 'rejected') {
@@ -170,7 +169,6 @@ class _ApprovalsScreenState extends State<ApprovalsScreen>
                 Text(
                   "Created At: ${created != null ? DateFormat('dd MMM yyyy, hh:mm a').format(created) : 'N/A'}",
                 ),
-
 
                 if (seller.approvalStatus == 'rejected' &&
                     seller.rejectionReason.isNotEmpty) ...[
