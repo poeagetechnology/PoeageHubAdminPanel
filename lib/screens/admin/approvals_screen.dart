@@ -51,7 +51,7 @@ class _ApprovalsScreenState extends State<ApprovalsScreen>
     }).toList();
   }
 
-  /// 🔥 APPROVE / REJECT WITH REASON
+
   Future<void> _confirmStatusChange(Seller seller, String newStatus) async {
 
     if (newStatus == 'rejected') {
@@ -171,7 +171,7 @@ class _ApprovalsScreenState extends State<ApprovalsScreen>
                   "Created At: ${created != null ? DateFormat('dd MMM yyyy, hh:mm a').format(created) : 'N/A'}",
                 ),
 
-                /// 🔥 SHOW REJECTION REASON
+
                 if (seller.approvalStatus == 'rejected' &&
                     seller.rejectionReason.isNotEmpty) ...[
                   const SizedBox(height: 15),
