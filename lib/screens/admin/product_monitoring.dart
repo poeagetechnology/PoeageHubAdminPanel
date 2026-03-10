@@ -21,7 +21,7 @@ class _ProductMonitoringScreenState extends State<ProductMonitoringScreen> {
     return Scaffold(
       backgroundColor: const Color(0xfff8f8fa),
 
-      /// APPBAR
+
       appBar: AppBar(
         title: const Text("Product Monitoring"),
         backgroundColor: Colors.deepPurple,
@@ -31,7 +31,7 @@ class _ProductMonitoringScreenState extends State<ProductMonitoringScreen> {
       body: Column(
         children: [
 
-          /// SEARCH BAR
+
           Padding(
             padding: const EdgeInsets.all(16),
             child: TextField(
@@ -53,7 +53,7 @@ class _ProductMonitoringScreenState extends State<ProductMonitoringScreen> {
             ),
           ),
 
-          /// PRODUCT LIST
+
           Expanded(
             child: StreamBuilder<List<Product>>(
               stream: _productService.getAllProducts(),
@@ -110,11 +110,11 @@ class _ProductMonitoringScreenState extends State<ProductMonitoringScreen> {
                         child: Column(
                           children: [
 
-                            /// TOP ROW
+
                             Row(
                               children: [
 
-                                /// PRODUCT IMAGE
+
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
                                   child: product.imageUrl.isNotEmpty
@@ -134,14 +134,14 @@ class _ProductMonitoringScreenState extends State<ProductMonitoringScreen> {
 
                                 const SizedBox(width: 14),
 
-                                /// PRODUCT DETAILS
+
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
                                     CrossAxisAlignment.start,
                                     children: [
 
-                                      /// NAME + ARROW
+
                                       Row(
                                         mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -195,7 +195,7 @@ class _ProductMonitoringScreenState extends State<ProductMonitoringScreen> {
                                       Row(
                                         children: [
 
-                                          /// PRICE
+
                                           Text(
                                             "₹${product.price}",
                                             style: const TextStyle(
@@ -207,7 +207,7 @@ class _ProductMonitoringScreenState extends State<ProductMonitoringScreen> {
 
                                           const SizedBox(width: 16),
 
-                                          /// STOCK BADGE
+
                                           Container(
                                             padding: const EdgeInsets
                                                 .symmetric(
@@ -245,7 +245,7 @@ class _ProductMonitoringScreenState extends State<ProductMonitoringScreen> {
                               ],
                             ),
 
-                            /// EXPANDED PRODUCT DETAILS
+
                             if (expanded) ...[
                               const SizedBox(height: 12),
                               const Divider(),

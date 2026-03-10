@@ -15,7 +15,7 @@ class AdminDashboardScreen extends StatelessWidget {
         child: Column(
           children: [
 
-            /// HEADER
+
             Container(
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(20, 25, 20, 30),
@@ -53,7 +53,7 @@ class AdminDashboardScreen extends StatelessWidget {
 
             const SizedBox(height: 25),
 
-            /// SELLER STATS
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: StreamBuilder<QuerySnapshot>(
@@ -106,7 +106,7 @@ class AdminDashboardScreen extends StatelessWidget {
 
             const SizedBox(height: 30),
 
-            /// FEATURE GRID
+
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
