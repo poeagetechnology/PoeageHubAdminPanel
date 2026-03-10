@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'approvals_screen.dart';
+import 'product_monitoring.dart';
 
 class AdminDashboardScreen extends StatelessWidget {
   const AdminDashboardScreen({super.key});
@@ -13,7 +15,7 @@ class AdminDashboardScreen extends StatelessWidget {
         child: Column(
           children: [
 
-
+            /// HEADER
             Container(
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(20, 25, 20, 30),
@@ -51,7 +53,7 @@ class AdminDashboardScreen extends StatelessWidget {
 
             const SizedBox(height: 25),
 
-
+            /// SELLER STATS
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: StreamBuilder<QuerySnapshot>(
@@ -60,10 +62,8 @@ class AdminDashboardScreen extends StatelessWidget {
                     .snapshots(),
                 builder: (context, snapshot) {
 
-                  if (snapshot.connectionState ==
-                      ConnectionState.waiting) {
-                    return const Center(
-                        child: CircularProgressIndicator());
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
                   }
 
                   if (!snapshot.hasData) {
@@ -106,7 +106,7 @@ class AdminDashboardScreen extends StatelessWidget {
 
             const SizedBox(height: 30),
 
-
+            /// FEATURE GRID
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -130,6 +130,14 @@ class AdminDashboardScreen extends StatelessWidget {
                       Icons.people,
                       Colors.blue,
                       const Placeholder(),
+                    ),
+
+                    _featureCard(
+                      context,
+                      "Product Monitoring",
+                      Icons.inventory_2,
+                      Colors.deepPurple,
+                      const ProductMonitoringScreen(),
                     ),
 
                     _featureCard(
@@ -181,7 +189,7 @@ class AdminDashboardScreen extends StatelessWidget {
     );
   }
 
-
+  /// STAT CARD
   static Widget _statCard(String title, int count, Color color) {
     return Expanded(
       child: Container(
@@ -204,8 +212,6 @@ class AdminDashboardScreen extends StatelessWidget {
             const SizedBox(height: 6),
             Text(
               title,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
@@ -217,7 +223,7 @@ class AdminDashboardScreen extends StatelessWidget {
     );
   }
 
-
+  /// FEATURE CARD
   static Widget _featureCard(
       BuildContext context,
       String title,
@@ -229,7 +235,9 @@ class AdminDashboardScreen extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (_) => screen),
+          MaterialPageRoute(
+            builder: (context) => screen,
+          ),
         );
       },
       child: Container(
@@ -254,8 +262,6 @@ class AdminDashboardScreen extends StatelessWidget {
             Text(
               title,
               textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
