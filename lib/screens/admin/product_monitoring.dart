@@ -21,7 +21,6 @@ class _ProductMonitoringScreenState extends State<ProductMonitoringScreen> {
     return Scaffold(
       backgroundColor: const Color(0xfff8f8fa),
 
-
       appBar: AppBar(
         title: const Text("Product Monitoring"),
         backgroundColor: Colors.deepPurple,
@@ -31,7 +30,7 @@ class _ProductMonitoringScreenState extends State<ProductMonitoringScreen> {
       body: Column(
         children: [
 
-
+          /// SEARCH BAR
           Padding(
             padding: const EdgeInsets.all(16),
             child: TextField(
@@ -53,7 +52,7 @@ class _ProductMonitoringScreenState extends State<ProductMonitoringScreen> {
             ),
           ),
 
-
+          /// PRODUCT LIST
           Expanded(
             child: StreamBuilder<List<Product>>(
               stream: _productService.getAllProducts(),
@@ -63,16 +62,26 @@ class _ProductMonitoringScreenState extends State<ProductMonitoringScreen> {
                   return const Center(child: CircularProgressIndicator());
                 }
 
-                if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Center(
-                    child: Text("No products found"),
-                  );
+                if (!snapshot.hasData) {
+                  return const Center(child: Text("No products found"));
                 }
 
-                final products = snapshot.data!
-                    .where((product) =>
-                    product.name.toLowerCase().contains(searchQuery))
-                    .toList();
+                final allProducts = snapshot.data!;
+
+                final products = allProducts.where((product) {
+                  return product.name
+                      .toLowerCase()
+                      .contains(searchQuery);
+                }).toList();
+
+                if (products.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      "No matching products",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  );
+                }
 
                 return ListView.builder(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -100,7 +109,7 @@ class _ProductMonitoringScreenState extends State<ProductMonitoringScreen> {
                           borderRadius: BorderRadius.circular(18),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black12.withOpacity(0.05),
+                              color: Colors.black.withOpacity(0.05),
                               blurRadius: 10,
                               offset: const Offset(0, 4),
                             )
@@ -110,11 +119,11 @@ class _ProductMonitoringScreenState extends State<ProductMonitoringScreen> {
                         child: Column(
                           children: [
 
-
+                            /// TOP PRODUCT ROW
                             Row(
                               children: [
 
-
+                                /// PRODUCT IMAGE
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
                                   child: product.imageUrl.isNotEmpty
@@ -134,30 +143,31 @@ class _ProductMonitoringScreenState extends State<ProductMonitoringScreen> {
 
                                 const SizedBox(width: 14),
 
-
+                                /// PRODUCT DETAILS
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
                                     CrossAxisAlignment.start,
                                     children: [
 
-
+                                      /// NAME + EXPAND ICON
                                       Row(
                                         mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
-                                            product.name,
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
+                                          Expanded(
+                                            child: Text(
+                                              product.name,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                              ),
                                             ),
                                           ),
                                           Icon(
                                             expanded
                                                 ? Icons.keyboard_arrow_up
-                                                : Icons
-                                                .keyboard_arrow_down,
+                                                : Icons.keyboard_arrow_down,
                                           )
                                         ],
                                       ),
@@ -195,7 +205,7 @@ class _ProductMonitoringScreenState extends State<ProductMonitoringScreen> {
                                       Row(
                                         children: [
 
-
+                                          /// PRICE
                                           Text(
                                             "₹${product.price}",
                                             style: const TextStyle(
@@ -207,21 +217,16 @@ class _ProductMonitoringScreenState extends State<ProductMonitoringScreen> {
 
                                           const SizedBox(width: 16),
 
-
+                                          /// STOCK BADGE
                                           Container(
-                                            padding: const EdgeInsets
-                                                .symmetric(
-                                                horizontal: 10,
-                                                vertical: 4),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 10, vertical: 4),
                                             decoration: BoxDecoration(
                                               color: lowStock
-                                                  ? Colors.red
-                                                  .withOpacity(0.15)
-                                                  : Colors.green
-                                                  .withOpacity(0.15),
+                                                  ? Colors.red.withOpacity(0.15)
+                                                  : Colors.green.withOpacity(0.15),
                                               borderRadius:
-                                              BorderRadius.circular(
-                                                  10),
+                                              BorderRadius.circular(10),
                                             ),
                                             child: Text(
                                               lowStock
@@ -229,8 +234,7 @@ class _ProductMonitoringScreenState extends State<ProductMonitoringScreen> {
                                                   : "Stock: ${product.stock}",
                                               style: TextStyle(
                                                 fontSize: 12,
-                                                fontWeight:
-                                                FontWeight.w600,
+                                                fontWeight: FontWeight.w600,
                                                 color: lowStock
                                                     ? Colors.red
                                                     : Colors.green,
@@ -245,7 +249,7 @@ class _ProductMonitoringScreenState extends State<ProductMonitoringScreen> {
                               ],
                             ),
 
-
+                            /// EXPANDED DETAILS
                             if (expanded) ...[
                               const SizedBox(height: 12),
                               const Divider(),
